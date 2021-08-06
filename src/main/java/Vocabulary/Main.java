@@ -10,21 +10,14 @@ public class Main {
         System.out.println("Введите фразу на аборигенском:");
         String msg = scanner.nextLine();
 
-        System.out.println("Ведите пояснения:");
-        String yourWords = scanner.nextLine();
+        Function<String, String[]> stringToArray = s -> Arrays.stream(s.split("\\s+")).distinct().sorted().toArray(String[]::new);
+        String[] array = stringToArray.apply(msg);
+        System.out.println("Ваш словарь для общения с аборигенами:");
+        for (String s : array) {
+            System.out.println(s);
+        }
 
-        // детерминированность
-        Function<String, String[]> splitWords = string -> string.split("\\s");
-
-        System.out.println("\nВаш словарь для общения с аборигенами:");
-
-        // Монада
-        Arrays.stream((splitWords.apply(msg + yourWords)))
-                .sorted()
-                .map(w -> w + " - значение этого слова пока неизвестно!")
-                .forEach(System.out::println);
 
     }
-
-
 }
+
